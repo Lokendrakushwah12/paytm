@@ -4,7 +4,7 @@ const { User } = require('../db');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = require('../config')
 const zod = require('zod');
-const authMiddleware = require('../middleware');
+const { authMiddleware } = require('../middleware');
 
 const signupSchema = zod.object({
     firstName: zod.string(),
@@ -37,7 +37,7 @@ router.post('/signup', async (req, res) => {
         username: req.body.username
     });
 
-    if (user._id) {
+    if (user) {
         return res.json({
             message: "Email already exists"
         });
