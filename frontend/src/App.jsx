@@ -1,5 +1,9 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
+import SignUp from "./Pages/SignUp";
+import SignIn from "./Pages/SignIn";
+import Dashboard from "./Pages/Dashboard";
+import Sendmoney from "./Pages/Sendmoney";
 
 function App() {
   return (
@@ -7,13 +11,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/register" element={<Register />} /> */}
-          {/* <Route path="dashboard/*" element={<DashboardRoute />} /> */}
-          {/* <Route path="/pricing" element={<Pricing />} /> */}
-          {/* <Route path="/Register" element={<Register />} /> */}
-          {/* <Route path="termsofservice" element={<TermsofService />} /> */}
-          {/* <Route path="privacypolicy" element={<PrivacyPolicy />} /> */}
-          {/* <Route path="*" element={<Navigate to="/" />} /> */}
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="signup/*" element={<SignUp />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/send" element={<Sendmoney />} />
         </Routes>
       </BrowserRouter>
     </>
