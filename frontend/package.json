@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@pixaui/button-v1": "^1.0.2",
+    "@pixaui/button-v2": "^1.0.5",
+    "@pixaui/button-v3": "^1.0.2",
+    "@pixaui/button-v4": "^1.0.1",
+    "@pixaui/button-v5": "^1.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.0"
