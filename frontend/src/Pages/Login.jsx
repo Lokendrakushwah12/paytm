@@ -11,7 +11,7 @@ const Login = () => {
               <button className='bg-[#f2f2f2] w-full md:w-[400px] font-[600] text-[#212121] border-none p-2 rounded-md'>Sign In</button>
             </form>
             <div className='flex justify-center text-[#f2f2f2]/50 font-[300] items-center ' >
-              Don't have an account? &nbsp;<a href='/signup' className='text-[#f2f2f2] hover:text-[#f2f2f2] hover:underline font-[400]'>Sign Up</a>
+              Don't have an account? &nbsp;<Link to='/signup' className='text-[#f2f2f2] hover:text-[#f2f2f2] hover:underline font-[400]'>Sign Up</Link>
             </div>
           </div>
         </div>

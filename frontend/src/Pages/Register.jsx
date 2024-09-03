@@ -15,7 +15,7 @@ const Register = () => {
                     <button className='bg-[#f2f2f2] w-full md:w-[400px] font-[600] text-[#212121] border-none p-2 rounded-md'>Sign Up</button>
                 </form>
                 <div className='flex justify-center text-[#f2f2f2]/50 font-[300] items-center ' >
-                    Already have an account? &nbsp;<Link href='/signin' className='text-[#f2f2f2] hover:text-[#f2f2f2] hover:underline font-[400]'>Sign In</Link>
+                    Already have an account? &nbsp;<Link to='/signin' className='text-[#f2f2f2] hover:text-[#f2f2f2] hover:underline font-[400]'>Sign In</Link>
                 </div>
             </div>
         </div>
