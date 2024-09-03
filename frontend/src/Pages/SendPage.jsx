@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Send = () => {
+const SendPage = () => {
     return (
         <div className='h-screen flex justify-center items-start pt-24'>
             <div className="flex flex-col w-full px-12 xs:px-4 justify-start items-center rounded-2xl gap-2">
@@ -21,4 +21,4 @@ const Send = () => {
     )
 }
 
-export default Send
+export default SendPage

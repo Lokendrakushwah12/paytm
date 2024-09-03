@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Eye } from 'lucide-react';
 
-const Dashboard = () => {
+const DashboardPage = () => {
     return (
-        <div className='h-screen flex justify-center items-start pt-24'>
+      <div className='h-screen flex justify-center items-start pt-24'>
             <div className="flex flex-col w-full px-12 xs:px-4 justify-start items-center rounded-2xl gap-2">
                 <h1 className='justify-center w-full items-center text-7xl flex font-[500] text-[#f2f2f2] pb-12'>Dashboard</h1>
                 {/* header */}
@@ -56,7 +56,7 @@ const Dashboard = () => {
                 </div>
             </div>
         </div>
-    )
+      )
 }
 
-export default Dashboard
+export default DashboardPage
