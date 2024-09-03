@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
-import SignUp from "./Pages/SignUp"; 
-import SignIn from "./Pages/SignIn";
+import Register from "./Pages/Register";
+import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import Sendmoney from "./Pages/Sendmoney";
 
@@ -10,10 +10,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/SignIn" element={<SignIn />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Sendmoney" element={<Sendmoney />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/sendmoney" element={<Sendmoney />} />
       </Routes>
     </Router>
   );
