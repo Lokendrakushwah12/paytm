@@ -10,10 +10,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/send" element={<Sendmoney />} />
+        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Sendmoney" element={<Sendmoney />} />
       </Routes>
     </Router>
   );
