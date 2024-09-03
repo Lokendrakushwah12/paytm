@@ -1,19 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Home from "./Pages/Home";
+import LandingPage from "./Pages/LandingPage";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
-// import Dashboard from "./Pages/Dashboard";
-// import Sendmoney from "./Pages/Sendmoney";
+import Send from "./Pages/Send";
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-        {/* <Route path="/sendmoney" element={<Sendmoney />} /> */}
+        <Route path="/sendmoney" element={<Send />} />
       </Routes>
     </Router>
   );
