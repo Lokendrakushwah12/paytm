@@ -3,7 +3,7 @@ import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
-import Sendmoney from "./Pages/Sendmoney";
+// import Sendmoney from "./Pages/Sendmoney";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/sendmoney" element={<Sendmoney />} />
+        {/* <Route path="/sendmoney" element={<Sendmoney />} /> */}
       </Routes>
     </Router>
   );
