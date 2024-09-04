@@ -3,19 +3,19 @@ import LandingPage from "./Pages/LandingPage";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import NotFound404 from "./Pages/NotFound404";
-import DashboardPage from "./Pages/DashboardPage";
-import SendPage from "./Pages/SendPage";
+import Transfer from "./Pages/Transfer";
+import Dash from "./Pages/Dash";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/dash" element={<Dash />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
-        <Route path="/send" element={<SendPage />} />
-        <Route path="*" element={<NotFound404 />} />
+        <Route path="/transfer" element={<Transfer />} />
+        <Route path="/*" element={<NotFound404 />} />
       </Routes>
     </Router>
   );
