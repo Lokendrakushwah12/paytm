@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Input from '../Components/ui/input';
 import Button from '../Components/ui/button';
-import axios from 'axios'
-import Spinner from '../Components/ui/spinner'
+import axios from 'axios';
+import Spinner from '../Components/ui/spinner';
+import Success from '../Components/ui/Success';
 
 const Register = () => {
     const [firstName, setFirstName] = useState('');
@@ -14,6 +15,8 @@ const Register = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [buttonLabel, setButtonLabel] = useState('Sign Up');
+    const navigate = useNavigate();
 
     const validateForm = () => {
         if (password.length < 8) {
@@ -28,17 +31,38 @@ const Register = () => {
     };
 
     const onSubmit = async (e) => {
-        setLoading(true);
         e.preventDefault();
         if (validateForm()) {
-            const response = await axios.post('http://localhost:5000/api/v1/user/signup', {
-                username: email,
-                firstName,
-                lastName,
-                password
-            });
-            localStorage.setItem('token', response.data.token);
-            setLoading(false);
+            setLoading(true);
+            try {
+                const response = await axios.post('http://localhost:5000/api/v1/user/signup', {
+                    username: email,
+                    firstName,
+                    lastName,
+                    password
+                });
+                localStorage.setItem('token', response.data.token);
+                setSuccess(true);
+                setButtonLabel('Account Created Successfully');
+
+                // Clear input fields
+                setFirstName('');
+                setLastName('');
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
+
+                navigate('/dashboard');
+
+                // Change button label after 1 second
+                setTimeout(() => {
+                    setButtonLabel('Sign Up');
+                }, 2000);
+            } catch (error) {
+                setError('An error occurred during registration.');
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
@@ -53,14 +77,18 @@ const Register = () => {
                     <Input type='password' name='password' value={password} placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
                     <Input type='password' name='confirmPassword' value={confirmPassword} placeholder='Confirm Password' onChange={(e) => setConfirmPassword(e.target.value)} />
                     {error && <div className='text-red-500 font-[300] text-left text-sm'>{error}</div>}
-                    <Button label='Sign Up' icon={<Spinner />} />
+                    {loading ? (
+                        <Button label='Processing' icon={<Spinner />} />
+                    ) : (
+                        <Button label={buttonLabel} icon={buttonLabel === 'Account Created Successfully' ? <Success /> : null} />
+                    )}
                 </form>
                 <div className='flex justify-center text-[#f2f2f2]/50 font-[300] items-center ' >
                     Already have an account? &nbsp;<Link to='/signin' className='text-[#f2f2f2] hover:text-[#f2f2f2] hover:underline font-[400]'>Sign In</Link>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Register;

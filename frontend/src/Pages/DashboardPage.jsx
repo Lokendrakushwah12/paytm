@@ -1,9 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Eye } from 'lucide-react';
 import Card from '../Components/ui/Card';
+import axios from 'axios';
+import Input from '../Components/ui/input';
 
 const DashboardPage = () => {
+    const [users, setUsers] = useState([]);
+    const [filter, setFilter] = useState('');
+    const [balance, setBalance] = useState('');
+
+    useEffect(() => {
+        const getUsers = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/v1/user/bulk?filter=' + filter, {
+
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    }
+                });
+                setUsers(response.data);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        }
+        getUsers();
+    }, [filter])
+
+    const getBalance = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/v1/account/balance', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+
+                }
+            });
+            console.log(response.data.balance);
+        } catch (error) {
+            console.error('Error fetching balance:', error);
+        }
+    }
+    // getBalance();
+
+
     return (
         <div className='h-screen flex justify-center items-start pt-24'>
             <div className="flex flex-col w-full px-12 xs:px-4 justify-start items-center rounded-2xl gap-2">
@@ -26,21 +65,11 @@ const DashboardPage = () => {
                 <div className='w-full  md:max-w-[700px] my-2 h-[1px] bg-[#f2f2f2]/10' />
                 <div className="flex flex-col md:max-w-[700px] gap-2 w-full justify-center">
                     <h3 className='text-left font-[500] text-[#f2f2f2] text-3xl'>Users</h3>
+                    <Input type='search' placeholder='Search' onChange={(e) => setFilter(e.target.value)} />
                     <div className="flex flex-col w-full justify-center items-center gap-4">
-                        <div className="flex justify-between w-full items-center p-2 bg-[#f2f2f2]/5 rounded-lg">
-                            <div className="flex justify-center items-center gap-2">
-                                <img src="https://avatars.githubusercontent.com/u/77189432" draggable='false' alt="Lokendra Kushwah" className='rounded-full select-none w-[25px] border md:w-[40px] h-[25px] md:h-[40px]' />
-                                <p className='text-center font-[300] text-[#f2f2f2]/70 tex-sm md:text-lg'>Lokendra Kushwah</p>
-                            </div>
-                            <div className="flex justify-center items-center gap-2">
-                                {/* <p className='text-center font-[300] text-[#f2f2f2]/70 text-lg'>1000 <span className='text-[#f2f2f2]/70 font-[300] text-lg'>INR</span></p>
-                                <Eye color="#f2f2f299" size={18} /> */}
-                                <Link to="/transfer">
-                                    <button className='border-[#f2f2f2]/10 hover:bg-[#161616] md:text-base text-sm transition-all w-[120px] md:w-[200px] bg-[#121212] font-[600] text-[#f2f2f2] border p-2 rounded-md'>Send Money</button>
-                                </Link>
-                            </div>
-                        </div>
-                        <Card name='Lokendra' />
+                        {users.map(user => (
+                            <Card key={user._id} title={user.username} subtitle={user.email} />
+                        ))}
                     </div>
                 </div>
             </div>
