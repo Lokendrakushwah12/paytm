@@ -14,7 +14,7 @@ const DashboardPage = () => {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/v1/user/bulk?filter=' + filter, {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/user/bulk?filter=` + filter, {
 
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -31,12 +31,12 @@ const DashboardPage = () => {
     useEffect(() => {
         const getDetails = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/v1/account/balance', {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/account/balance`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     }
                 });
-                const responseDetails = await axios.get('http://localhost:5000/api/v1/user', {
+                const responseDetails = await axios.get(`${import.meta.env.VITE_API_URL}/user`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     }

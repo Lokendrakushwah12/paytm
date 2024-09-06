@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true); // Set loading to true when form submission starts
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/user/signin', {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/user/signin`, {
         username: email,
         password
       });

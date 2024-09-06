@@ -35,7 +35,7 @@
             if (validateForm()) {
                 setLoading(true);
                 try {
-                    const response = await axios.post('http://localhost:5000/api/v1/user/signup', {
+                    const response = await axios.post(`${import.meta.env.VITE_API_URL}/user/signup`, {
                         username: email,
                         firstName,
                         lastName,
