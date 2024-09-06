@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { User, Account } = require("../db");
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = require("../config");
+const { JWT_SECRET } = require("../config");
 const zod = require("zod");
 const { authMiddleware } = require("../middleware");
 
@@ -47,14 +47,14 @@ router.post("/signup", async (req, res) => {
 
   await Account.create({
     userId: newUser._id,
-    balance: 1 + Math.random() * 10000,
+    balance: 10000 + Math.random() * 100000,
   });
 
   const token = jwt.sign(
     {
       userId: newUser._id,
     },
-    JWT_SECRET
+    JWT_SECRET, { expiresIn: '1d' }
   );
   res.json({
     message: "User Created Successfully",
@@ -73,6 +73,7 @@ router.post("/signin", async (req, res) => {
 
   const { username, password } = req.body;
 
+
   try {
     const user = await User.findOne({
       username,
@@ -83,7 +84,16 @@ router.post("/signin", async (req, res) => {
       throw new Error("Invalid credentials");
     }
 
+    const token = jwt.sign(
+      {
+        userId: user._id,
+      },
+      JWT_SECRET, { expiresIn: '1d' }
+    );
+
+
     res.json({
+      token: token,
       message: "User logged in successfully",
     });
   } catch (error) {
@@ -110,12 +120,9 @@ router.put("/", authMiddleware, async (req, res) => {
 });
 
 router.get("/", authMiddleware, async (req, res) => {
-  const user = await User.findOne({
-    username: req.user.username,
-  });
 
   res.json({
-    user,
+    user: req.user,
   });
 });
 

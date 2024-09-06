@@ -4,13 +4,21 @@ const { Account } = require("../db");
 const router = express.Router();
 
 router.get("/balance", authMiddleware, async (req, res) => {
-  const account = await Account.findOne({
-    userId: req.userId,
-  });
+  try {
+    const account = await Account.findOne({
+      userId: req.userId,
+    });
 
-  res.json({
-    balance: account.balance,
-  });
+    if (!account) {
+      return res.status(404).json({ message: 'Account not found' });
+    }
+
+    res.json({
+      balance: account.balance,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
 });
 
 router.post("/transfer", authMiddleware, async (req, res) => {
@@ -54,24 +62,24 @@ router.post("/transfer", authMiddleware, async (req, res) => {
     }
   ).session(session);
 
-    await Account.updateOne(
-        {
-        userId: to,
-        },
-        {
-        $inc: {
-            balance: amount,
-        },
-        }
-    ).session(session);
+  await Account.updateOne(
+    {
+      userId: to,
+    },
+    {
+      $inc: {
+        balance: amount,
+      },
+    }
+  ).session(session);
 
-    await session.commitTransaction();
+  await session.commitTransaction();
 
-    session.endSession();
+  session.endSession();
 
-    res.json({
-        message: "Transfer successful",
-    });
+  res.json({
+    message: "Transfer successful",
+  });
 });
 
 module.exports = router;
