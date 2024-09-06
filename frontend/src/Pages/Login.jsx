@@ -4,14 +4,15 @@ import Button from '../Components/ui/button';
 import Input from '../Components/ui/input';
 import axios from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
+import Spinner from '../Components/ui/spinner';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
-
 
   const handleMouseDown = () => {
     setShowPassword(true); // Show password on mouse down
@@ -23,16 +24,20 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when form submission starts
     try {
       const response = await axios.post('http://localhost:5000/api/v1/user/signin', {
         username: email,
         password
       });
       localStorage.setItem('token', response.data.token);
-      navigate('/dashboard'); // Use navigate from react-router-dom for redirection
+      navigate('/dashboard');
     } catch (error) {
-      setError('An error occurred during login. Please try again.');
+      const message = error.response?.data?.message || 'An error occurred during login. Please try again.';
+      setError(message);
       console.error('Login error:', error); // Log error for debugging
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -64,7 +69,12 @@ const Login = () => {
             </button>
           </div>
           {error && <div className='text-red-500 font-[300] text-left text-sm'>{error}</div>}
-          <Button label='Sign In' />
+          <Button 
+            label={loading ? 'Processing' : 'Sign In'} // Update button label based on loading state
+            icon={loading ? <Spinner /> : null} // Show spinner if loading
+            type="submit"
+            disabled={loading} // Disable button while loading
+          />
         </form>
         <div className='flex justify-center text-[#f2f2f2]/50 font-[300] items-center '>
           Don't have an account? &nbsp;
