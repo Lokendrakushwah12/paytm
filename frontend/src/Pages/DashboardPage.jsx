@@ -77,7 +77,7 @@ const DashboardPage = () => {
                     <Input type='search' placeholder='Search' onChange={(e) => setFilter(e.target.value)} />
                     <div className="flex flex-col w-full justify-center items-center gap-4">
                         {users.map(user => (
-                            <Card key={user.id} name={user.firstName} />
+                            <Card key={user.id} user={user} />
                         ))}
                     </div>
                 </div>

@@ -33,3 +33,15 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #121212 inset !important;
 }
+
+/* Hide arrows in Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide arrows in Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
