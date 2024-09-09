@@ -6,6 +6,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 const SendPage = () => {
     const [message, setMessage] = useState();
     const [error, setError] = useState();
+    const [balance, setBalance] = useState(0);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
@@ -19,7 +20,28 @@ const SendPage = () => {
         }
     }, [amount]);
 
+    useEffect(() => {
+        const getDetails = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/account/balance`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    }
+                });
+                setBalance(parseFloat(response.data.balance));
+            } catch (error) {
+                console.error('Error fetching balance:', error);
+            }
+        }
+        getDetails();
+    }, []);
+
     const transferRequest = async () => {
+        if (amount > balance) {
+            setError('Insufficient balance');
+            setMessage('');
+            return;
+        }
         try {
             axios.post(`${import.meta.env.VITE_API_URL}/account/transfer`, {
                 to: id,
