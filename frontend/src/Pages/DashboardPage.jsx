@@ -48,7 +48,7 @@ const DashboardPage = () => {
             }
         }
         getDetails();
-    }, []);
+    }, [balance]);
 
 
     return (

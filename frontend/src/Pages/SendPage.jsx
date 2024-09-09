@@ -2,6 +2,8 @@ import axios from 'axios';
 import { Eye } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SendPage = () => {
     const [message, setMessage] = useState();
@@ -52,8 +54,11 @@ const SendPage = () => {
                 }
             })
             setError('');
-            setMessage('Money transferred successfully');
-            navigate('/dashboard');
+            setMessage('');
+            toast.success('Money transferred successfully');
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 1000); // Adjust the delay as needed
         }
         catch (error) {
             setError('Error transferring money');
@@ -114,6 +119,7 @@ const SendPage = () => {
                 }
 
             </div>
+            <ToastContainer />
         </div>
     )
 }
