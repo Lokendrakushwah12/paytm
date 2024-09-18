@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  font-family: 'Inter Display', sans-serif;
+  font-family: Inter Display, sans-serif;
   font-feature-settings: 'liga' 1, 'calt' 1;
   color-scheme: light dark;
   font-synthesis: none;
@@ -14,7 +14,7 @@
 
 @supports (font-variation-settings: normal) {
   :root {
-    font-family: 'Inter Display', sans-serif;
+    font-family: Inter Display, sans-serif;
   }
 }
 
